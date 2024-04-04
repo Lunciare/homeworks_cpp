@@ -1,0 +1,394 @@
+/// #1
+/// Write a function to read a file containing integers separated by spaces
+/// or newlines, sum these integers, and write the result to another file.
+/*
+#include <iostream>
+#include <fstream> 
+
+using namespace std;
+
+int f()
+{
+    ifstream myIN("input.txt");
+    ofstream myOUT("output.txt");
+
+    int sum = 0;
+
+    for(; !myIN.eof();) // работает как while
+    {
+      int x;
+      if (myIN >> x)
+      {
+        sum += x;
+      }
+    }
+
+    myOUT << sum;
+    myIN.close();
+    myOUT.close();
+
+  return 0;
+}
+
+int main() {
+    f();
+    return 0;
+}
+*/
+
+/// #2
+/// Create a function that copies the content of one file to another file.
+/*
+#include <iostream>
+#include <fstream> 
+#include <string>
+
+using namespace std;
+
+int copyFile()
+{
+  ifstream myIN("input.txt");
+  ofstream myOUT("output.txt");
+
+  string s;
+  for(; !myIN.eof();)
+    {
+      getline(myIN, s);
+      myOUT << s << endl;
+    }
+  myIN.close();
+  myOUT.close();
+
+  return 0;
+}
+
+int main() {
+    copyFile();
+    return 0;
+}
+*/
+
+/// #3
+/// Write a program to count the number of lines, words, and characters in a text file.
+/*
+#include <iostream>
+#include <cmath>
+#include <fstream>
+
+using namespace std;
+
+void statistics()
+{
+    ifstream myIN("input.txt");
+
+    int lines = 0, words = 0, chars = 0;
+    string s;
+    for(; !myIN.eof();)
+    {
+        getline(myIN, s);
+        lines ++;
+    }
+
+    myIN.clear();
+    myIN.seekg(0); // перевод в начало файла, на нулевой символ
+
+    for(; !myIN.eof();)
+    {
+        myIN >> s; 
+        words++;
+        chars += s.length();
+    }
+
+    myIN.close();
+    cout << lines << " " << words << " " << chars << endl;
+    return ;
+}
+
+int main()
+{
+    statistics();
+    return 0;
+}
+*/
+
+/// другой вариант этой же задачи, только со своими нюансами (контест)
+/*
+#include <fstream>
+#include <iostream>
+#include <sstream> 
+
+using namespace std;
+
+void statistics(const string& filePath, int &chars, int &words, int &lines)
+{
+    ifstream myIN(filePath);
+    char ch;
+    bool inWord = false;
+
+    while(myIN.get(ch)) 
+    {
+        if(isalpha(ch)) 
+        {
+            chars++;
+            inWord = true;
+        }
+        else 
+        {
+            if(inWord) 
+            {
+                words++;
+            }
+            inWord = false;
+        }
+
+        if(ch == '\n') 
+        {
+            lines++;
+        }
+    }
+
+    myIN.close();
+}
+
+
+int main() 
+{
+    int chars = 0, words = 0, lines = 0;
+    statistics("input.txt", chars, words, lines);
+    
+    cout << "Input file contains: " << endl;
+    cout << chars << " letters" << endl;
+    cout << words << " words" << endl;
+    cout << lines << " lines"; 
+    return 0;
+}
+*/
+
+/// #4
+/// Write a function to find and replace all occurrences of a word in a file.
+/*
+#include <iostream>
+#include <cmath>
+#include <fstream>
+
+using namespace std;
+
+void findAndReplaceInFile(string oldWord, string newWord)
+{
+    ifstream myIN("input.txt");
+    ofstream myOUT("output.txt");
+
+    string s;
+
+    for(; !myIN.eof();)
+    {
+        getline(myIN, s);
+        while(s.find(oldWord) != string::npos)
+        {
+            int p = s.find(oldWord);
+            s.replace(p, oldWord.length(), newWord);
+        }
+        myOUT << s << endl;
+    }
+
+    myIN.close();
+    myIN.clear();
+    myOUT.close();
+    myOUT.clear();
+
+    myOUT.open("input.txt");
+    myIN.open("output.txt");
+
+    for(; !myIN.eof();)
+    {
+        getline(myIN, s);
+        myOUT << s << endl;
+    }
+
+    myIN.close();
+    myOUT.close();
+    return ;
+}
+
+int main()
+{
+    findAndReplaceInFile("Sasha", "Alexandra");
+    return 0;
+}
+*/
+
+/// #5
+/// Write a program to read the content of a text file and write its 
+/// content in reverse order to another file.
+/*
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+void reverseFileContent()
+{
+    ifstream myIN("input.txt");
+    ofstream myOUT("output.txt");
+
+    string s;
+    vector<string> rev;
+
+    for(; !myIN.eof();)
+    {
+        getline(myIN, s);
+        reverse(s.begin(), s.end());
+        rev.push_back(s);   
+    }
+
+    for(int i = rev.size()-1; i >= 0; i--)
+    {
+        myOUT << rev[i] << endl;
+    }
+
+    myIN.close();
+    myOUT.close();
+    return ;
+}
+
+int main()
+{
+    reverseFileContent();
+    return 0;
+}
+*/
+
+
+/// Replace 'a' to 'b'
+/*
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+  string s;
+  cin >> s;
+  string s1 = "";
+  int c = 0;
+  for(int i = 0; i < s.length(); i++)
+    {
+      if(s[i] == 'a')
+      {
+        s1.push_back('b');
+        c++;
+      }
+      else
+      {
+        s1.push_back(s[i]);
+      }
+    }
+
+  cout << s1 << endl;
+  cout << c << endl;
+  return 0;
+}
+*/
+
+
+/// #6 Create a program to extract a specific line number from 
+/// a text file and write it to another file.
+/*
+#include <fstream>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void extractLineToFile(const string& inputFilePath, const string& outputFilePath, int lineNum)
+{
+  ifstream myIN("input.txt");
+  ofstream myOUT("output.txt");
+  int cnt = 1;
+  string s;
+
+  for(; !myIN.eof();)
+    {
+      getline(myIN, s);
+      if(cnt == lineNum)
+      {
+        myOUT << s << endl;
+        break;
+      }
+      cnt++;
+    }
+
+  myIN.close();
+  myOUT.close();
+}
+int main() 
+{
+    extractLineToFile("input.txt", "output.txt", 3);
+    return 0;
+}
+*/
+
+
+/// #7 Write a program that removes all blank lines from a text file 
+/// and writes the result to a new file.
+/*
+#include <iostream>
+#include <fstream>
+#include <string>
+
+
+using namespace std;
+
+int main()
+{
+  string s;
+  ifstream myIN("input.txt");
+  ofstream myOUT("output.txt");
+
+  for(; !myIN.eof();)
+    {
+      getline(myIN, s);
+      if(s.length() > 0)
+      {
+        myOUT << s << endl;
+      }
+    }
+
+  myIN.close();
+  myOUT.close();
+
+    return 0;
+}
+*/
+
+/// #8 Develop a program to append content to the end of 
+/// an existing file without overwriting its current content.
+/*
+#include <fstream>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void appendToFile(string s)
+{
+  ofstream myOUT("output.txt", ios::app);
+
+  myOUT << endl;
+  myOUT << s;
+
+  myOUT.close();
+}
+
+
+int main() 
+{
+  string s = "ABCDEFG";
+  appendToFile(s);
+    return 0;
+}
+*/
