@@ -1,0 +1,299 @@
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+/*
+class Student
+{
+  private:
+  string name, fname;
+  int x1, x2, x3;
+
+  public:
+  Student(string name = "", string fname = "", int x1 = 0, int x2 = 0, int x3 = 0)
+  {
+    (*this).name = name;
+    (*this).fname = fname;
+    (*this).x1 = x1;
+    (*this).x2 = x2;
+    (*this).x3 = x3;
+  }
+
+  void setName(string name)
+  {
+    this->name = name;
+    return ;
+  }
+
+  string getName()
+  {
+    return name;
+  }
+
+  void setFname(string fname)
+  {
+    this->fname = fname;
+    return ;
+  }
+
+  string getFname()
+  {
+    return fname;
+  }
+
+  double av() const
+  {
+    return (x1+x2+x3)/3.0;
+  }
+};
+
+bool operator <(const Student& A, const Student& B)
+{
+  return B.av() < A.av();
+}
+
+
+int main()
+{
+  int k;
+  vector <Student> V;
+  cin >> k;
+
+  for(int i = 0; i < k; ++i)
+  {
+    int g1, g2, g3;
+    string n, f;
+    cin >> f >> n >> g1 >> g2 >> g3;
+
+    Student A(n, f, g1, g2, g3);
+    V.push_back(A);
+  }
+
+  stable_sort(V.begin(), V.end());
+
+  for(int i = 0; i < k; ++i)
+    {
+      cout << V[i].getFname() << " " << V[i].getName() << endl;
+    }
+}
+*/
+
+
+class Point
+{
+  private:
+  int x, y;
+
+  public:
+  Point(int x, int y)
+  {
+    this->x = x;
+    this->y = y;
+  }
+
+  void setX(int x)
+  {
+    this->x = x;
+    return ;
+  }
+  int getX()
+  {
+    return x;
+  }
+
+  void setY(int y) 
+  {
+    this->y = y;
+    return ;
+  }
+  int getY()
+  {
+    return y;
+  }
+
+  double distance() const
+  {
+    return sqrt(pow(x, 2) + pow(y, 2));
+  }
+};
+
+
+bool operator <(const Point& A, const Point& B)
+{
+  return A.distance() < B.distance();
+}
+
+int main()
+{
+  vector<Point> V;
+  
+  int k;
+  cin >> k;
+  for(int i = 0; i < k; ++i)
+    {
+      int x, y;
+      cin >> x >> y;
+      Point A(x, y);
+      V.push_back(A);
+    }
+
+  stable_sort(V.begin(), V.end());
+
+  for(int i = 0; i < k; ++i)
+    {
+      cout << V[i].getX() << " " << V[i].getY() << endl;
+    }
+  return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <ctime>
+#include <set>
+#include <cmath>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
+class Vector3D
+{
+private:
+    double x;
+    double y;
+    double z;
+
+public:
+    // 3 типа конструктора: пустой, по умолчанию и конструктор копирования с тремя способами задания
+    Vector3D()
+    {
+        (*this).x = 0.0;
+        (*this).y = 0.0;
+        (*this).z = 0.0;
+    }
+    Vector3D(double x, double y, double z)
+    {
+        (*this).x = x;
+        (*this).y = y;
+        (*this).z = z;
+    }
+    Vector3D(const Vector3D& v2)
+    {
+        (*this).x = v2.x;
+        this->y = v2.y;
+        z = v2.z;
+    }
+
+    // поскольку поля в классе private, нужны геттеры и сеттеры, чтобы их получить
+    double getX() const
+    {
+        return x;
+    }
+    void setX(double x)
+    {
+        this->x = x;
+        return;
+    }
+    double getY() const
+    {
+        return y;
+    }
+    void setY(double y)
+    {
+        this->y = y;
+        return;
+    }
+    double getZ() const
+    {
+        return z;
+    }
+    void setZ(double z)
+    {
+        this->z = z;
+        return;
+    }
+
+    Vector3D operator+(const Vector3D& A)
+    {
+        return Vector3D((*this).x+A.x, (*this).y+A.y, (*this).z+A.z);
+    }
+
+    double magnitude() const
+    {
+        return sqrt(pow(((*this).x), 2) + pow(((*this).y), 2) + pow(((*this).x), 2));
+    }
+
+};
+
+Vector3D operator+(const Vector3D& A, const Vector3D& B)
+{
+    return Vector3D(A.getX()+B.getX(), A.getY()+B.getY(), A.getZ()+B.getZ());
+}
+
+double operator* (const Vector3D& v1, Vector3D& v2)
+{
+    return v1.getX()*v2.getX() + v1.getY()*v2.getY() + v1.getZ()*v2.getZ();
+}
+
+Vector3D operator* (const Vector3D& v1, double d)
+{
+    Vector3D v2;
+    v2.setX(v1.getX() * d);
+    v2.setY(v1.getY() * d);
+    v2.setZ(v1.getZ() * d);
+    return v2;
+}
+
+ostream& operator<<(ostream& out, const Vector3D& A)
+{
+    out << "(" << A.getX() << ", " << A.getY() << ", " << A.getZ() << ")";
+    return out;
+}
+
+istream& operator>>(istream& in, Vector3D& B)
+{
+    double x, y, z;
+    in >> x >> y >> z;
+    B.setX(x);
+    B.setY(y);
+    B.setZ(z);
+    return in;
+}
+
+bool operator<(const Vector3D& v1, const Vector3D& v2)
+{
+    return v1.magnitude() < v2.magnitude();
+}
+
+int main()
+{
+    multiset<Vector3D> s;
+    srand(time(NULL));
+    rand();
+
+    for(int i = 0; i < 100; ++i)
+    {
+        Vector3D V;
+        double x, y, z;
+        double tmp = RAND_MAX/2;
+        V.setX((rand() - tmp)/tmp);
+        V.setY((rand() - tmp)/tmp);
+        V.setZ((rand() - tmp)/tmp);
+        s.insert(V);
+    }
+
+    double sum = 0;
+    for(multiset<Vector3D>::iterator it = s.begin(); it != s.end(); ++it)
+    {
+        cout << *it << endl;
+        sum += (it->magnitude());
+    }
+    cout << sum/100;
+
+    return 0;
+}
+*/
