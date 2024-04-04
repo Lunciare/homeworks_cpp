@@ -1,0 +1,224 @@
+/// выведите обратную перестановку
+/*
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+  int n;
+  cin >> n;
+
+  vector<int> V(n, 0);
+
+  for(int i = 0; i < n; i++)
+    {
+      cin >> V[i];
+      V[i]--;
+    }
+  
+  vector<int> O(n, 0);
+  for(int i = 0; i < n; i++)
+    {
+      O[V[i]] = i;
+    }
+  for(int i = 0; i < n; i++)
+    {
+      cout << O[i] + 1 << " ";
+    }
+  return 0;
+}
+*/
+
+
+/// считать файл csv и посчитать среднее арифметическое по столбцам
+/// в файле csv числа записаны через запятую без пробелов. 
+/// поэтому надо считать по строкам и разделить по запятым.
+/*
+#include <fstream>
+#include <sstream>
+#include <vector> 
+
+using namespace std;
+
+int main() 
+{
+    ifstream myIN("input.csv");
+    ofstream myOUT("output.csv");
+    string s;
+    vector<double> average;
+
+    int cnt = 0;
+    for(; myIN.eof() == false;)
+    {
+        string s;
+        vector<int> v;
+
+
+        getline(myIN, s);
+        if(s.length() == 0) break;
+
+        cnt++;
+        
+        s.push_back(',');
+        int ch = 0;
+
+        for(int i = 0; i < s.length(); i++)
+        {
+            if(s[i] != ',') 
+            {
+                ch = ch*10 + (s[i] - '0'); // парсинг, выделение чисел из строки; s[i] - '0' получаем число
+            } // последовательно получаем число (251) 2, 25, 251
+            else
+            {
+                v.push_back(ch);
+                ch = 0;
+            }
+        }
+
+        if(average.size() == 0)
+        {
+            average.resize(v.size(), 0); // если проходим по циклу в 1 раз, то заполняем вектор average нулями в количестве v.size()
+        }
+        for(int i = 0; i < v.size(); i++)
+        {
+            average[i] += v[i];
+        }
+
+    }
+
+    for(int i = 0; i < average.size(); i++)
+    {
+        average[i] /= (double)cnt;
+        myOUT << average[i] << ' ';
+    }
+    
+    myIN.close();
+    myOUT.close();
+
+    return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <stdexcept>
+using namespace std;
+
+int a[100][100];
+
+void spiral(int n, int m)
+{
+    for (int i = 0; i <= n; i++)
+    {
+        for (int j = 0; j <= m; j++)
+        {
+            a[i][j] = 0;
+        }
+    }
+
+    int x = 0;
+    int y = 0;
+    int dir[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    int cur = 0;
+    int cnt = 1;
+    int ras = 0;
+    while (cnt <= n * m && ras < 4)
+    {
+        a[x][y] = cnt;
+        int nx = x + dir[cur][0];
+        int ny = y + dir[cur][1];
+        if (nx < n && nx >= 0 && ny < m && ny >= 0 && a[nx][ny] == 0)
+        {
+            ras = 0;
+            x = nx;
+            y = ny;
+            cnt++;
+        }
+        else
+        {
+            cur = (cur + 1) % 4;
+            ras++;
+        }
+    }
+}
+
+int main()
+{
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    int n, m;
+    cin >> n >> m;
+    spiral(n, m);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+*/
+
+// отразить матрицу по горизонтали
+/*
+#include <iostream>
+
+int a[100][100];
+
+int main()
+{
+    int n, m;
+    std::cin >> n >> m;
+    for (int i = 0; i < n; ++i) // чтобы было по вертикали, надо поменять идею коэффов для i и j
+    {
+        for (int j = m - 1; j >= 0; --j)
+        {
+            std::cin >> a[i][j];
+        }
+    }
+    for (int k = 0; k < n; ++k)
+    {
+        for (int l = 0; l < m; ++l)
+        {
+            std::cout << a[k][l] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    return 0;
+}
+*/
+
+// вращение матрицы влево на 90 градусов
+/*
+#include <iostream>
+
+int a[100][100];
+
+int main()
+{
+    int n;
+    std::cin >> n;
+    for (int j = 0; j < n; ++j) // вращение вправо - поменять идею коэффов i и j
+    {
+        for (int i = n - 1; i >= 0; --i)
+        {
+            std::cin >> a[i][j];
+        }
+    }
+    for (int k = 0; k < n; ++k)
+    {
+        for (int l = 0; l < n; ++l)
+        {
+            std::cout << a[k][l] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    return 0;
+}
+*/
