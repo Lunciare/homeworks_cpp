@@ -1,0 +1,415 @@
+/*
+#include <iostream>
+
+struct Student
+{
+    std::string name;
+    std::string fname;
+    int g1, g2, g3;
+};
+
+Student SS[100];
+
+int main()
+{
+    int n;
+    std::cin >> n;
+
+    double s1 = 0, s2 = 0, s3 = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> SS[i].name >> SS[i].fname >> SS[i].g1 >> SS[i].g2 >> SS[i].g3;
+        s1 += SS[i].g1;
+        s2 += SS[i].g2;
+        s3 += SS[i].g3;
+    }
+
+    std::cout << s1 / n << " " << s2 / n << " " << s3 / n << std::endl;
+
+    return 0;
+}
+*/
+
+/*
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <stdexcept>
+
+struct Car
+{
+    int year; // fields
+    std::string color;
+    int count_doors;
+    int fuel_level;
+    int mileage;
+
+    Car(int y = 1997, std::string c = "red", int d = 4, double f = 50.0, double dis = 0.0)
+    {
+        (*this).year = y;
+        (*this).color = c;
+        (*this).count_doors = d;
+        (*this).fuel_level = f;
+        (*this).mileage = dis;
+    };
+
+    int drive(double distance)
+    {
+        mileage += distance;
+        fuel_level -= (distance / 10);
+        return mileage, fuel_level;
+    };
+
+    int refuel(double amount)
+    {
+        fuel_level += amount;
+        return fuel_level;
+    };
+
+    std::string change_color(std::string s)
+    {
+        color = s;
+        return color;
+    };
+
+    void stop()
+    {
+        std::cout << "car has been stopped" << std::endl;
+    }
+
+    void info()
+    {
+        std::cout << year << ' ' << color << ' ' << count_doors << ' ' << fuel_level << ' ' << mileage << '\n';
+    }
+};
+
+int main()
+{
+    Car gamma;
+    std::cout << gamma.year << ' ' << gamma.color << ' ' << gamma.count_doors << ' ' << gamma.fuel_level << ' ' << gamma.mileage << std::endl;
+
+    Car infinity(2018, "black", 2, 65.0, 0.0);
+
+    infinity.info();
+    infinity.drive(100);
+    infinity.info();
+    infinity.refuel(12.0);
+    infinity.info();
+    infinity.change_color("white");
+    infinity.info();
+    infinity.stop();
+    return 0;
+}
+*/
+
+// подсчет среднего балла и вывод людей с максимальным
+/*
+#include <iostream>
+
+struct Student
+{
+    std::string name;
+    std::string fname;
+    double g1, g2, g3;
+};
+
+Student SS[100];
+
+int main()
+{
+    int n;
+    std::cin >> n;
+
+    double max_grade = -1;
+
+    double av[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> SS[i].name >> SS[i].fname >> SS[i].g1 >> SS[i].g2 >> SS[i].g3;
+
+        av[i] = (SS[i].g1 + SS[i].g2 + SS[i].g3) / 3;
+    }
+
+    for (int k = 0; k < n; ++k)
+    {
+        if (av[k] >= max_grade)
+        {
+            max_grade = av[k];
+        }
+    }
+
+    for (int l = 0; l < n; ++l)
+    {
+        if (av[l] == max_grade)
+        {
+            std::cout << SS[l].name << ' ' << SS[l].fname << ' ' << std::endl;
+        }
+    }
+
+    return 0;
+}
+*/
+
+
+// стэк с постоянным размером памяти
+/*
+#include <iostream>
+
+const int maxsize = 105;
+
+struct myStack
+{
+    int data[maxsize];
+    int size_m;
+
+    myStack()
+    {
+        size_m = 0;
+    };
+
+    void push(int x)
+    {
+        data[size_m] = x;
+        ++size_m;
+        return;
+    };
+
+    int pop()
+    {
+        int a = data[size_m - 1];
+        --size_m;
+        return a;
+    };
+
+    int back()
+    {
+        return data[size_m - 1];
+    };
+
+    int size()
+    {
+        return size_m;
+    };
+
+    void clear()
+    {
+        size_m = 0;
+        return;
+    };
+};
+
+int main()
+{
+    myStack SS = myStack();
+
+    while (true)
+    {
+        std::string s;
+        std::cin >> s;
+        if (s == "exit")
+        {
+            std::cout << "bye" << std::endl;
+            return 0;
+        }
+        else if (s == "push")
+        {
+            int n;
+            std::cin >> n;
+            SS.push(n);
+            std::cout << "ok" << std::endl;
+        }
+        else if (s == "pop")
+        {
+            int m = SS.pop();
+            std::cout << m << std::endl;
+        }
+        else if (s == "size")
+        {
+            int sz = SS.size();
+            std::cout << sz << std::endl;
+        }
+        else if (s == "back")
+        {
+            int l = SS.back();
+            std::cout << l << std::endl;
+        }
+        else if (s == "clear")
+        {
+            SS.clear();
+            std::cout << "ok" << std::endl;
+        }
+    }
+    return 0;
+}
+*/
+
+// стэк с неограниченным объемом памяти
+/*
+#include <iostream>
+
+const int maxsize = 105;
+
+struct myStack
+{
+    int *data;
+    int size_m;
+    int capacity;
+
+    myStack()
+    {
+        capacity = maxsize;
+        data = new int[capacity]; // new возвращает адрес куска памяти и записывает его в data
+        size_m = 0;
+    };
+
+    ~myStack()
+    {
+        delete data;
+    };
+
+    void push(int x)
+    {
+        if (size_m == capacity)
+        {
+            int *old_data = data;
+            data = new int[capacity * 2];
+            for (int i = 0; i < size_m; ++i)
+            {
+                data[i] = old_data[i];
+            }
+            capacity *= 2;
+            delete old_data;
+        }
+        data[size_m] = x;
+        ++size_m;
+        return;
+    };
+
+    int pop()
+    {
+        int a = data[size_m - 1];
+        --size_m;
+        return a;
+    };
+
+    int back()
+    {
+        return data[size_m - 1];
+    };
+
+    int size()
+    {
+        return size_m;
+    };
+
+    void clear()
+    {
+        size_m = 0;
+        return;
+    };
+};
+
+int main()
+{
+    myStack SS = myStack();
+
+    while (true)
+    {
+        std::string s;
+        std::cin >> s;
+        if (s == "exit")
+        {
+            std::cout << "bye" << std::endl;
+            return 0;
+        }
+        else if (s == "push")
+        {
+            int n;
+            std::cin >> n;
+            SS.push(n);
+            std::cout << "ok" << std::endl;
+        }
+        else if (s == "pop")
+        {
+            if (SS.size() <= 0)
+            {
+                std::cout << "error" << std::endl;
+            }
+            else
+            {
+                int m = SS.pop();
+                std::cout << m << std::endl;
+            }
+        }
+        else if (s == "size")
+        {
+            int sz = SS.size();
+            std::cout << sz << std::endl;
+        }
+        else if (s == "back")
+        {
+            if (SS.size() <= 0)
+            {
+                std::cout << "error" << std::endl;
+            }
+            else
+            {
+                int l = SS.back();
+                std::cout << l << std::endl;
+            }
+        }
+        else if (s == "clear")
+        {
+            SS.clear();
+            std::cout << "ok" << std::endl;
+        }
+    }
+    return 0;
+}
+*/
+
+// отсотрировать студентов по среднему баллу
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Student
+{
+    string name;
+    string fname;
+    int g1, g2, g3;
+};
+
+bool comp(Student A, Student B)
+{
+    return (A.g1 + A.g2 + A.g3) > (B.g1 + B.g2 + B.g3);
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<Student> V(n);
+
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> V[i].name >> V[i].fname >> V[i].g1 >> V[i].g2 >> V[i].g3;
+    }
+
+    stable_sort(V.begin(), V.end(), comp);
+
+    for (auto person : V)
+    {
+        cout << person.name << ' ' << person.fname << ' ' << endl;
+    }
+
+    return 0;
+}
+*/
