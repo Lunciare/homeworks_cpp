@@ -1,0 +1,174 @@
+/*
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main()
+{
+    set<int> S;
+    set<int>::iterator it = S.begin(); // s.begin() возвращает тип данных set<int>::iterator
+    it = S.find(3);
+    if (it != S.end()) // S.find(3) != S.end()
+    {
+        return 0;
+    }
+    for (set<int>::iterator it = S.begin(); it != S.end(); ++it) // проход по сету
+    {
+        int x = (*it); // it хранит адрес элемента, а (*it) хранит сам элемент
+        cout << x << ' ';
+    }
+}
+*/
+
+// посчитать мощность введенного сета
+/*
+#include <iostream>
+#include <set>
+#include <sstream>
+
+using namespace std;
+
+int main()
+{
+    string s;
+    getline(cin, s);
+    stringstream SS(s); // инициализируем поток через строку, пробелы у него будут разделителями
+    int x;
+    set<int> S;
+    for (; SS >> x;)
+    {
+        S.insert(x);
+    }
+    cout << S.size();
+}
+*/
+
+//вывести пересечение сетов
+/*
+#include <iostream>
+#include <set>
+#include <sstream>
+
+using namespace std;
+
+int main()
+{
+    string s1, s2;
+    getline(cin, s1);
+    getline(cin, s2);
+    stringstream SS1(s1); // инициализируем поток через строку, пробелы у него будут разделителями
+    stringstream SS2(s2);
+
+    int x;
+    set<int> S1;
+    set<int> S2;
+    for (; SS1 >> x;)
+    {
+        S1.insert(x);
+    }
+    for (; SS2 >> x;)
+    {
+        S2.insert(x);
+    }
+
+    for (set<int>::iterator it = S1.begin(); it != S1.end(); ++it)
+    {
+        int t = (*it);
+        if (S2.find(t) != S2.end())
+        {
+            cout << t << ' ';
+        }
+    }
+}
+*/
+
+// сколько раз до этого слово встречалось
+/*
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main()
+{
+    freopen("input.txt", "r", stdin);
+    map<string, int> M;
+    string s;
+
+    while (cin >> s)
+    {
+        if (M.find(s) != M.end())
+        {
+            cout << M[s] << ' ';
+        }
+        else
+        {
+            cout << 0 << ' ';
+        }
+        M[s]++;
+    }
+    return 0;
+}
+*/
+
+// посчитать количество различных слов в тексте
+/*
+#include <iostream>
+#include <set>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    freopen("input.txt", "r", stdin);
+
+    string s;
+
+    set<string> S;
+
+    while (cin >> s)
+    {
+        S.insert(s);
+    }
+
+    cout << S.size();
+    return 0;
+}
+*/
+
+// просуммировать аргументы у ключей, если уже встречались
+/*
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main()
+{
+    string c;
+    int v;
+    map<string, int> M;
+
+    while (cin >> c >> v)
+    {
+        if (M.find(c) == M.end())
+        {
+            M[c] = v;
+        }
+        else
+        {
+            M[c] += v;
+        }
+    }
+
+    for (map<string, int>::iterator it = M.begin(); it != M.end(); ++it)
+    {
+        pair<string, int> x;
+        x = (*it);
+        cout << x.first << " " << x.second << endl;
+    }
+    return 0;
+}
+*/
