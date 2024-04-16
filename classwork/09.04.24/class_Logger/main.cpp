@@ -85,11 +85,7 @@ int sum(int a, int b)
     logger.log("Суммируем числа " + to_string(a) + " "
                     + to_string(b) + "res = " + to_string(res),
                 Logger::Level::INFO);
-    int t = time(NULL);
-    for(; time(NULL) == t;)
-    {
-        return a + b;
-    }
+    return a + b;
 }
 
 int main() 
